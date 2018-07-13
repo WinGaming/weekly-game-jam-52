@@ -6,6 +6,7 @@ import java.util.List;
 import de.wingaming.parable.Main;
 import de.wingaming.parable.game.TileType;
 import de.wingaming.parable.game.World;
+import de.wingaming.parable.game.side.entity.EntityPortal;
 import de.wingaming.parable.game.side.entity.VertexEntity;
 import de.wingaming.parable.input.KeyboardManager;
 import de.wingaming.parable.io.Loader;
@@ -31,7 +32,12 @@ public class GameSideView implements UI {
 		player = new Player(defaultPlayer);
 		lastCheckpoint = defaultPlayer;
 		
-//		entities.add(new EntityCubed(new Location(200, 200)));
+		EntityPortal firstPortal = new EntityPortal(new Location(1776.25, 501));
+		EntityPortal testPortal = new EntityPortal(new Location(500, 100));
+		firstPortal.setDestiny(testPortal);
+		
+		entities.add(firstPortal);
+		entities.add(testPortal);
 	}
 	
 	public void update() {
@@ -67,7 +73,7 @@ public class GameSideView implements UI {
 		world.render();
 		
 		for (VertexEntity vertexEntity : entities) {
-			vertexEntity.render();
+			vertexEntity.render(world.getCamera());
 		}
 
 		Main.gc.setFill(Color.BLACK);
@@ -104,5 +110,9 @@ public class GameSideView implements UI {
 	
 	public Location getLastCheckpoint() {
 		return lastCheckpoint;
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 }

@@ -45,14 +45,14 @@ public class VertexEntity implements CollideFallback {
 		}
 	}
 	
-	public void render() {
+	public void render(Vector2d camera) {
 		for (int x = 0; x < matrix.length; x++) {
 			for (int y = 0; y < matrix[x].length; y++) {
 				Vertex vertex = matrix[x][y];
 				if (vertex == null) continue;
 				
-				Main.gc.setFill(Color.BLACK);
-				Main.gc.fillRoundRect(location.getX() + vertex.getX() - 5, location.getY() + vertex.getY() - 5, 10, 10, 90, 90);
+//				Main.gc.setFill(Color.BLACK);
+//				Main.gc.fillRoundRect(location.getX() + vertex.getX() - 5, location.getY() + vertex.getY() - 5, 10, 10, 90, 90);
 				
 				//top-down-right
 				Vertex under = y == matrix[x].length-1 ? null : matrix[x][y+1];
@@ -63,7 +63,7 @@ public class VertexEntity implements CollideFallback {
 					Color fillColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 					
 					Main.gc.setFill(fillColor);
-					Main.gc.fillPolygon(new double[] {location.getX() + vertex.getX(), location.getX() + under.getX(), location.getX() + right.getX()}, new double[] {location.getY() + vertex.getY(), location.getY() + under.getY(), location.getY() + right.getY()}, 3);
+					Main.gc.fillPolygon(new double[] {location.getX() + vertex.getX() - camera.getX(), location.getX() + under.getX() - camera.getX(), location.getX() + right.getX() - camera.getX()}, new double[] {location.getY() + vertex.getY() - camera.getY(), location.getY() + under.getY() - camera.getY(), location.getY() + right.getY() - camera.getY()}, 3);
 				}
 				
 				//bottom-left-top
@@ -75,7 +75,7 @@ public class VertexEntity implements CollideFallback {
 					Color fillColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 					
 					Main.gc.setFill(fillColor);
-					Main.gc.fillPolygon(new double[] {location.getX() + vertex.getX(), location.getX() + top.getX(), location.getX() + left.getX()}, new double[] {location.getY() + vertex.getY(), location.getY() + top.getY(), location.getY() + left.getY()}, 3);
+					Main.gc.fillPolygon(new double[] {location.getX() + vertex.getX() - camera.getX(), location.getX() + top.getX() - camera.getX(), location.getX() + left.getX() - camera.getX()}, new double[] {location.getY() + vertex.getY() - camera.getY(), location.getY() + top.getY() - camera.getY(), location.getY() + left.getY() - camera.getY()}, 3);
 				}
 			}
 		}

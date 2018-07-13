@@ -24,10 +24,10 @@ public class Player implements CollideFallback {
 	}
 	
 	public void update(World world) {
-		this.location = world.collide(location, velocity.getX(), velocity.getY(), size, size, this);
+		this.location = world.collide(location, velocity.getX(), velocity.getY(), size+1, size+1, this);
 		
 		Vector2d camera = world.getCamera();
-		if (location.getX() - camera.getX() > Main.WIDTH*0.9) world.setCamera(new Vector2d(location.getX() - Main.WIDTH*0.9, camera.getY()));
+		if (location.getX() - camera.getX() > Main.WIDTH*0.8) world.setCamera(new Vector2d(location.getX() - Main.WIDTH*0.8, camera.getY()));
 		if (location.getX() - camera.getX() < Main.WIDTH*0.1) world.setCamera(new Vector2d(location.getX() - Main.WIDTH*0.1, camera.getY()));
 		if (location.getY() - camera.getY() > Main.HEIGHT*0.90) world.setCamera(new Vector2d(camera.getX(), location.getY() - Main.HEIGHT*0.90));
 		if (location.getY() - camera.getY() < Main.HEIGHT*0.05) world.setCamera(new Vector2d(camera.getX(), location.getY() - Main.HEIGHT*0.05));

@@ -17,8 +17,6 @@ public class UIMainMenue implements UI, MouseListener {
 	public static final UIMainMenue INSTANCE = new UIMainMenue();
 	public static Color MENUE_TEXT = Color.LIGHTBLUE;
 	
-//	private VertexBackground background = new VertexBackground();
-	
 	public UIMainMenue() {
 		new Thread(new Runnable() {
 			public void run() {
@@ -50,7 +48,7 @@ public class UIMainMenue implements UI, MouseListener {
 		
 		Main.gc.fillText("Start", 30, Main.HEIGHT - 30 - 60*3);
 		Main.gc.fillText("Options", 30, Main.HEIGHT - 30 - 60*2);
-		Main.gc.fillText("Links", 30, Main.HEIGHT - 30 - 60);
+		Main.gc.fillText("More", 30, Main.HEIGHT - 30 - 60);
 		Main.gc.fillText("Exit", 30, Main.HEIGHT - 30);
 		
 		Point p = MouseInfo.getPointerInfo().getLocation();
@@ -63,7 +61,7 @@ public class UIMainMenue implements UI, MouseListener {
 			if (y >= Main.HEIGHT - 30 - 60*2 - 50 && y <= Main.HEIGHT - 30 - 60*2 && x <= 30 + TextUtils.getWidth("Options", 50))
 				Main.gc.fillRect(30, Main.HEIGHT - 30 - 60*2 + 10, TextUtils.getWidth("Options", 50), 5);
 			if (y >= Main.HEIGHT - 30 - 60 - 50 && y <= Main.HEIGHT - 30 - 60 && x <= 30 + TextUtils.getWidth("Links", 50))
-				Main.gc.fillRect(30, Main.HEIGHT - 30 - 60 + 10, TextUtils.getWidth("Links", 50), 5);
+				Main.gc.fillRect(30, Main.HEIGHT - 30 - 60 + 10, TextUtils.getWidth("More", 50), 5);
 			if (y >= Main.HEIGHT - 30 - 50 && y <= Main.HEIGHT - 30 && x <= 30 + TextUtils.getWidth("Exit", 50))
 				Main.gc.fillRect(30, Main.HEIGHT - 30 + 10, TextUtils.getWidth("Exit", 50), 5);
 		}
@@ -74,6 +72,8 @@ public class UIMainMenue implements UI, MouseListener {
 	}
 	
 	public void onRelease() {
+		if (Main.renderer.getCurrentUI() != this) return;
+		
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		double x = p.getX() - Main.window.getX();
 		double y = p.getY() - Main.window.getY();
@@ -86,8 +86,8 @@ public class UIMainMenue implements UI, MouseListener {
 				Main.renderer.setCurrentUI(GameSideView.INSTANCE);
 			if (y >= Main.HEIGHT - 30 - 60*2 - 50 && y <= Main.HEIGHT - 30 - 60*2 && x <= 30 + TextUtils.getWidth("Options", 50))
 				Main.renderer.setCurrentUI(UIStartOptions.INSTANCE);
-			if (y >= Main.HEIGHT - 30 - 60 - 50 && y <= Main.HEIGHT - 30 - 60 && x <= 30 + TextUtils.getWidth("Links", 50))
-				; //TODO: show links
+			if (y >= Main.HEIGHT - 30 - 60 - 50 && y <= Main.HEIGHT - 30 - 60 && x <= 30 + TextUtils.getWidth("More", 50))
+				Main.renderer.setCurrentUI(UIExtras.INSTANCE);
 			if (y >= Main.HEIGHT - 30 - 50 && y <= Main.HEIGHT - 30 && x <= 30 + TextUtils.getWidth("Exit", 50))
 				System.exit(1);
 		}

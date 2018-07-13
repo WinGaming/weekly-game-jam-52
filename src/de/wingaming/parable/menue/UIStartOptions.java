@@ -114,8 +114,6 @@ public class UIStartOptions implements UI, MouseListener {
 		if (px >= playX && px <= playX + playWidth && py >= Main.HEIGHT - 150 && py < Main.HEIGHT - 50) {
 			Main.gc.fillRect(playX, Main.HEIGHT - 40, playWidth, 5);
 		}
-		
-		//mouse
 	}
 	
 	public void resize() {
@@ -123,6 +121,8 @@ public class UIStartOptions implements UI, MouseListener {
 	}
 	
 	public void onRelease() {
+		if (Main.renderer.getCurrentUI() != this) return;
+		
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		double x = p.getX() - Main.window.getX();
 		double y = p.getY() - Main.window.getY();
@@ -148,4 +148,6 @@ public class UIStartOptions implements UI, MouseListener {
 	}
 	
 	public void onPress() {}
+	
+	public static void a() {}
 }

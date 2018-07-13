@@ -7,7 +7,6 @@ import de.wingaming.parable.input.KeyboardManager;
 import de.wingaming.parable.io.Loader;
 import de.wingaming.parable.menue.UI;
 import de.wingaming.parable.menue.background.VertexBackground;
-import de.wingaming.parable.utils.Location;
 import javafx.scene.input.KeyCode;
 
 public class GameTopView implements UI {
@@ -15,7 +14,7 @@ public class GameTopView implements UI {
 	public static GameTopView INSTANCE = new GameTopView();
 	
 	private World world;
-	private Location location;
+//	private Location location;
 	
 	public GameTopView() {
 		world = Loader.loadWorld("world");

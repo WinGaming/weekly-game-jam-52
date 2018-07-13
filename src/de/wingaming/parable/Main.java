@@ -5,6 +5,7 @@ import de.wingaming.parable.game.World;
 import de.wingaming.parable.game.side.GameSideView;
 import de.wingaming.parable.input.KeyboardManager;
 import de.wingaming.parable.input.Mouse;
+import de.wingaming.parable.menue.UIExtras;
 import de.wingaming.parable.menue.UIMainMenue;
 import de.wingaming.parable.menue.UIStartOptions;
 import javafx.application.Application;
@@ -28,7 +29,7 @@ public class Main extends Application{
 	public static Font font;
 	public static String fontName;
 	
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	public void start(Stage window) throws Exception {
 		font = Font.loadFont(Main.class.getResourceAsStream("assets/fonts/Roboto-Light.ttf"), 10);
@@ -90,6 +91,10 @@ public class Main extends Application{
 				else
 					GameSideView.INSTANCE.getWorld().setTile(tileX, tileY, e.getButton() == MouseButton.PRIMARY ? TileType.getCurrentType() : null);
 		});
+		
+		//Preloading classes:
+		UIExtras.a();
+		UIStartOptions.a();
 	}
 	
 	public static void resize() {
