@@ -3,6 +3,8 @@ package de.wingaming.parable.input;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.wingaming.parable.Main;
+import de.wingaming.parable.menue.UI;
 import javafx.scene.input.MouseButton;
 
 public class Mouse {
@@ -15,6 +17,10 @@ public class Mouse {
 		Mouse.pressed = pressed;
 		
 		for (MouseListener mouseListener : listeners) {
+			if (mouseListener instanceof UI) {
+				if (!mouseListener.getClass().getName().equals(Main.renderer.getCurrentUI().getClass().getName())) continue;
+			}
+			
 			if (pressed) mouseListener.onPress();
 			else mouseListener.onRelease();
 		}

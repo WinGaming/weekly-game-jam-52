@@ -1,5 +1,10 @@
 package de.wingaming.parable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 import de.wingaming.parable.game.TileType;
 import de.wingaming.parable.game.World;
 import de.wingaming.parable.game.side.GameSideView;
@@ -31,9 +36,47 @@ public class Main extends Application{
 	
 	public static final boolean DEBUG = false;
 	
+	public static final int currentVersion = 2;
+	public static boolean oldVersion, versionError = true;
+	
 	public void start(Stage window) throws Exception {
 		font = Font.loadFont(Main.class.getResourceAsStream("assets/fonts/Roboto-Light.ttf"), 10);
 		fontName = font.getName();
+		
+		//Check for updates
+		new Thread(new Runnable() {
+			public void run() {
+				String body = "-";
+				try {
+					URL url = new URL("http://code.bplaced.net/52");
+					URLConnection con = url.openConnection();
+					InputStream in = con.getInputStream();
+					String encoding = con.getContentEncoding();
+					encoding = encoding == null ? "UTF-8" : encoding;
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buf = new byte[8192];
+					int len = 0;
+					while ((len = in.read(buf)) != -1) {
+					    baos.write(buf, 0, len);
+					}
+					body = new String(baos.toByteArray(), encoding);
+				} catch (Exception ex) {
+					versionError = true;
+				}
+
+				int newestVersion = -1;
+				try {
+					newestVersion = Integer.parseInt(body);
+					versionError = false;
+				} catch (NumberFormatException ex) {
+					versionError = true;
+				}
+				
+				if (newestVersion > currentVersion) {
+					oldVersion = true;
+				}
+			}
+		}).start();
 		
 		window.setTitle("N4mè");
 		window.setWidth(WIDTH);

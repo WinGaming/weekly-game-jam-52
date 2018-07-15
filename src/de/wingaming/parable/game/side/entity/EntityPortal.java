@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 public class EntityPortal extends VertexEntity {
 
 	private EntityPortal destiny;
+	private boolean setCheckpoint = false;
 	
 	public EntityPortal(Location location) {
 		super(location, null);
@@ -26,6 +27,10 @@ public class EntityPortal extends VertexEntity {
 		setMatrix(matrix);
 	}
 	
+	public void setSetCheckpoint(boolean setCheckpoint) {
+		this.setCheckpoint = setCheckpoint;
+	}
+	
 	public void update(World world) {
 		super.update(world);
 		
@@ -35,6 +40,11 @@ public class EntityPortal extends VertexEntity {
 			if (player.getLocation().getY() > getLocation().getY() && player.getLocation().getY() < getLocation().getY() + 75) {
 				player.getLocation().setX(destiny.getLocation().getX());
 				player.getLocation().setY(destiny.getLocation().getY());
+				world.getCamera().setY(0);
+				
+				if (setCheckpoint) {
+					GameSideView.INSTANCE.setLastCheckpoint(destiny.getLocation());
+				}
 			}
 		}
 	}

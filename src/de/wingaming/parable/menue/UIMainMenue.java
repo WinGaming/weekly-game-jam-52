@@ -65,6 +65,19 @@ public class UIMainMenue implements UI, MouseListener {
 			if (y >= Main.HEIGHT - 30 - 50 && y <= Main.HEIGHT - 30 && x <= 30 + TextUtils.getWidth("Exit", 50))
 				Main.gc.fillRect(30, Main.HEIGHT - 30 + 10, TextUtils.getWidth("Exit", 50), 5);
 		}
+		
+		if (Main.oldVersion) {
+			Main.gc.setFill(UIStartOptions.MENUE_TEXT);
+			Main.gc.setFont(Font.font(Main.fontName, 75));
+			
+			Main.gc.fillText("There is a new version available", Main.WIDTH/2 - TextUtils.getWidth("There is a new version available", 75)/2, 200 + 75);
+		}
+		if (Main.versionError) {
+			Main.gc.setFill(UIStartOptions.MENUE_TEXT);
+			Main.gc.setFont(Font.font(Main.fontName, 75));
+			
+			Main.gc.fillText("Could not check for new updates", Main.WIDTH/2 - TextUtils.getWidth("Could not check for new updates", 75)/2, 200 + 75);
+		}
 	}
 	
 	public void resize() {
@@ -82,8 +95,10 @@ public class UIMainMenue implements UI, MouseListener {
 		
 		//Get option
 		if (x > 30) {
-			if (y >= Main.HEIGHT - 30 - 60*3 - 50 && y <= Main.HEIGHT - 30 - 60*3 && x <= 30 + TextUtils.getWidth("Start", 50))
+			if ( y >= Main.HEIGHT - 30 - 60*3 - 50 && y <= Main.HEIGHT - 30 - 60*3 && x <= 30 + TextUtils.getWidth("Start", 50)) {
+				GameSideView.reset();
 				Main.renderer.setCurrentUI(GameSideView.INSTANCE);
+			}
 			if (y >= Main.HEIGHT - 30 - 60*2 - 50 && y <= Main.HEIGHT - 30 - 60*2 && x <= 30 + TextUtils.getWidth("Options", 50))
 				Main.renderer.setCurrentUI(UIStartOptions.INSTANCE);
 			if (y >= Main.HEIGHT - 30 - 60 - 50 && y <= Main.HEIGHT - 30 - 60 && x <= 30 + TextUtils.getWidth("More", 50))

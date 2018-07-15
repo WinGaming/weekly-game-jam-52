@@ -15,15 +15,24 @@ public class Vertex {
 	private boolean colorGrade;
 	private float colorGradian;
 	
-	public Vertex(double x, double y, List<Vertex> connections, boolean fixed) {
+	private float minOpacity, maxOpacity;
+	
+	public Vertex(double x, double y, List<Vertex> connections, boolean fixed, float minOpacity, float maxOpacity) {
 		this.x = x;
 		this.y = y;
 		this.connections = connections == null ? new ArrayList<>() : connections;
 		this.fixed = fixed;
+
+		this.minOpacity = minOpacity;
+		this.maxOpacity = maxOpacity;
 		
 		Random random = new Random();
 		this.colorGradian = random.nextFloat();
 		this.colorGrade = random.nextBoolean();
+	}
+	
+	public Vertex(double x, double y, List<Vertex> connections, boolean fixed) {
+		this(x, y, connections, fixed, 0, 1);
 	}
 	
 	public Vertex(double x, double y, List<Vertex> connections) {
@@ -31,13 +40,13 @@ public class Vertex {
 	}
 	
 	public void update() {
-		colorGradian += (colorGrade ? -1 : 1) * 0.025f;
+		colorGradian += (colorGrade ? -maxOpacity : maxOpacity) * 0.025f;
 		
-		if (colorGradian < 0) {
-			colorGradian = 0;
+		if (colorGradian < minOpacity) {
+			colorGradian = minOpacity;
 			colorGrade = false;
-		} else if (colorGradian > 1) {
-			colorGradian = 1;
+		} else if (colorGradian > maxOpacity) {
+			colorGradian = maxOpacity;
 			colorGrade = true;
 		}
 		
@@ -59,8 +68,8 @@ public class Vertex {
 //				vector.add(new Vector2d(left ? -a : a, over ? -b : b));
 			}
 			
-			this.x += vector.getX();// + ranA;
-			this.y += vector.getY();// + ranB;
+			this.x += vector.getX();
+			this.y += vector.getY();
 		}
 	}
 	
@@ -95,5 +104,13 @@ public class Vertex {
 	
 	public List<Vertex> getConnections() {
 		return connections;
+	}
+	
+	public void setMinOpacity(float minOpacity) {
+		this.minOpacity = minOpacity;
+	}
+	
+	public void setMaxOpacity(float maxOpacity) {
+		this.maxOpacity = maxOpacity;
 	}
 }

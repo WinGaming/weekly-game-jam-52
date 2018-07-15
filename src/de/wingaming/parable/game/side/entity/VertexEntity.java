@@ -122,6 +122,10 @@ public class VertexEntity implements CollideFallback {
 		return matrix;
 	}
 	
+	public boolean collide(double x, double y) {
+		return false;
+	}
+	
 	public void collideX() {}
 	public void collideY(boolean top) {}
 }

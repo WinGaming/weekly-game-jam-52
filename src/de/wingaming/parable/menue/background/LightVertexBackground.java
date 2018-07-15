@@ -3,16 +3,12 @@ package de.wingaming.parable.menue.background;
 import de.wingaming.parable.Main;
 import javafx.scene.paint.Color;
 
-public class VertexBackground {
+public class LightVertexBackground {
 	
-	public static VertexBackground GLOBAL_INSTANCE = new VertexBackground();
-	
-	public static Color PRIMARY = Color.LIMEGREEN;
-	public static Color SECONDARY = Color.DARKSLATEBLUE;
-	
+	private Color color;
 	private Vertex[][] verticies = new Vertex[11][11];
 	
-	public VertexBackground() {
+	public LightVertexBackground(Color color) {
 		//Generate
 		for (int x = 0; x < verticies.length; x++) {
 			for (int y = 0; y < verticies[x].length; y++) {
@@ -42,6 +38,8 @@ public class VertexBackground {
 				if (right != null) vertex.addVertex(right);
 			}
 		}
+		
+		this.color = color;
 	}
 	
 	public void setOpacityBordersForVertexes(float min, float max) {
@@ -68,9 +66,6 @@ public class VertexBackground {
 	}
 	
 	public void render() {
-		Main.gc.setFill(PRIMARY);
-		Main.gc.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-		
 		for (int x = 0; x < verticies.length; x++) {
 			for (int y = 0; y < verticies[x].length; y++) {
 				Vertex vertex = verticies[x][y];
@@ -85,7 +80,7 @@ public class VertexBackground {
 				
 				if (under != null && right != null) {
 					float opacity = (vertex.getColorGradian() + under.getColorGradian() + right.getColorGradian()) / 3;
-					Color fillColor = new Color(SECONDARY.getRed(), SECONDARY.getGreen(), SECONDARY.getBlue(), opacity);
+					Color fillColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 					
 					Main.gc.setFill(fillColor);
 					Main.gc.fillPolygon(new double[] {vertex.getX(), under.getX(), right.getX()}, new double[] {vertex.getY(), under.getY(), right.getY()}, 3);
@@ -97,7 +92,7 @@ public class VertexBackground {
 				
 				if (top != null && left != null) {
 					float opacity = (vertex.getColorGradian() + top.getColorGradian() + left.getColorGradian()) / 3;
-					Color fillColor = new Color(SECONDARY.getRed(), SECONDARY.getGreen(), SECONDARY.getBlue(), opacity);
+					Color fillColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 					
 					Main.gc.setFill(fillColor);
 					Main.gc.fillPolygon(new double[] {vertex.getX(), top.getX(), left.getX()}, new double[] {vertex.getY(), top.getY(), left.getY()}, 3);

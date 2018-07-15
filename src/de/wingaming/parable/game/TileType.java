@@ -30,6 +30,9 @@ public class TileType {
 	public static TileType SKY_STONE = new TileType(ImageUtils.resample(new Image("file:res/sky/stone.png"), 3), 1, 1, ImageDepth.DEFAULT).setSolid(true);
 	public static TileType SKY_STONE_WATER = new TileType(ImageUtils.resample(new Image("file:res/sky/stone_water.png"), 3), 1, 1, ImageDepth.DEFAULT);
 	
+	public static TileType SKY_STONE_BG = new TileType(ImageUtils.resample(new Image("file:res/sky/stone_bg.png"), 3), 1, 1, ImageDepth.DEFAULT);
+	public static TileType SKY_DIRT2_BG = new TileType(ImageUtils.resample(new Image("file:res/sky/dirt_2_bg.png"), 3), 1, 1, ImageDepth.DEFAULT);
+	
 	private static int index;
 	private static Map<String, TileType> tiles = new HashMap<>();
 	private static List<TileType> list = new ArrayList<>();
@@ -41,9 +44,6 @@ public class TileType {
 	static {
 		register("!", GRASS);
 		register("§", STONE);
-//		register("%", BUSH);
-		
-//		register("a", TREE_1);
 		
 		register("e", SKY_DIRT1);
 		register("f", SKY_DIRT2);
@@ -51,6 +51,9 @@ public class TileType {
 		register("h", SKY_GRASS2);
 		register("i", SKY_STONE);
 		register("j", SKY_STONE_WATER);
+		register("k", SKY_STONE_BG);
+		//l
+		register("m", SKY_DIRT2_BG);
 		
 		register("1", PATH_BOTTOM_LEFT);
 		register("2", PATH_BOTTOM_RIGHT);

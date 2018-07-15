@@ -45,4 +45,8 @@ public class Location {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public String toString() {
+		return "*.utils.Location:[x=\""+x+"\", y=\""+y+"\"]";
+	}
 }
